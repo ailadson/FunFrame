@@ -10,25 +10,24 @@ module Phase5
     # You haven't done routing yet; but assume route params will be
     # passed in as a hash to `Params.new` as below:
     def initialize(req, route_params = {})
-      @params = {}
+      @params = route_params
       @params.merge!(parse_www_encoded_form(req.query_string)) if req.query_string
       @params.merge!(parse_www_encoded_form(req.body)) if req.body
-      @params.merge!(route_params)
     end
 
-    def merge_request_body(req)
-      if req.query_string
-        query_hash = parse_www_encoded_form(req.query_body)
-        @params.merge!(query_hash)
-      end
-    end
-
-    def merge_query_string(req)
-      if req.query_string
-        query_hash = parse_www_encoded_form(req.query_string)
-        @params.merge!(query_hash)
-      end
-    end
+    # def merge_request_body(req)
+    #   if req.query_string
+    #     query_hash = parse_www_encoded_form(req.query_body)
+    #     @params.merge!(query_hash)
+    #   end
+    # end
+    #
+    # def merge_query_string(req)
+    #   if req.query_string
+    #     query_hash = parse_www_encoded_form(req.query_string)
+    #     @params.merge!(query_hash)
+    #   end
+    # end
 
     def [](key)
       @params[key.to_s] || @params[key.to_sym]
@@ -65,21 +64,19 @@ module Phase5
             current_hash[k] ||= {}
             current_hash = current_hash[k]
           end
-
         end
       end
-      p p_hash
       p_hash
     end
 
     # this should return an array
     # user[address][street] should return ['user', 'address', 'street']
     def parse_key(key)
-      if key.include?("[")
+      # if key.include?("[")
         key.split(/\]\[|\[|\]/)
-      else
-        [key]
-      end
+      # else
+      #   [key]
+      # end
     end
 
   end

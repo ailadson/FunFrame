@@ -1,6 +1,26 @@
 class Flash
+
+  #ugh
+  class Now
+    def initialize(messages)
+      @messages = messages
+    end
+
+    def []=(key, msg)
+      @messages[key.to_s] = [msg, false]
+    end
+
+    def [](key)
+      @messages[key.to_s][0] if @messages[key.to_s]
+    end
+  end
+
+  attr_reader :now
+
   def initialize(req)
     @messages = request_flash(req) || {}
+    @now = Now.new(@messages)
+    pre_action_update
   end
 
   def request_flash(req)
@@ -9,11 +29,11 @@ class Flash
   end
 
   def []=(key, msg)
-    @messages[key] = [msg, true]
+    @messages[key.to_s] = [msg, true]
   end
 
   def [](key)
-    @messages[key][0]
+    @messages[key.to_s][0] if @messages[key.to_s]
   end
 
   def pre_action_update
@@ -21,7 +41,6 @@ class Flash
       next if @messages[key].nil?
       @messages[key][1] = false
     end
-    p "Pre_update: #{@messages}"
   end
 
   def post_action_update
@@ -29,7 +48,6 @@ class Flash
       next if @messages[key].nil? || @messages[key][1]
       @messages.delete(key)
     end
-    p "Post_update: #{@messages}"
   end
 
   def store_messages(res)

@@ -32,12 +32,13 @@ end
 
 class Cats2Controller < Phase7::ControllerBase
   def index
-    render_content($cats.to_s, "text/text")
+    render :flash
   end
 
   def flashing
-    flash[:errors] = "Oh no"
-    render_content($cats.to_s, "text/text")
+    flash[:errors] = "Redirect flash"
+    flash.now[:notice] = "Render flash"
+    render :flash
   end
 end
 

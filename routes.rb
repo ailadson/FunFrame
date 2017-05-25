@@ -1,0 +1,1 @@
+# get "/path", :controller, :action

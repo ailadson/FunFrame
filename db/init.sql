@@ -1,14 +1,17 @@
 -- Example
 
-CREATE TABLE dogs (
-  id INTEGER PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  owner_id INTEGER,
-
-  FOREIGN KEY(owner_id) REFERENCES human(id)
-);
-
-CREATE TABLE humans (
-  id INTEGER PRIMARY KEY,
-  name VARCHAR(255) NOT NULL
-);
+-- DROP TABLE IF EXISTS humans CASCADE;
+-- DROP TABLE IF EXISTS dogs CASCADE;
+--
+-- CREATE TABLE humans (
+--   id SERIAL PRIMARY KEY,
+--   name VARCHAR(255) NOT NULL
+-- );
+--
+-- CREATE TABLE dogs (
+--   id SERIAL PRIMARY KEY,
+--   name VARCHAR(255) NOT NULL,
+--   owner_id INTEGER,
+--
+--   FOREIGN KEY(owner_id) REFERENCES humans(id)
+-- );

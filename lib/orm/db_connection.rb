@@ -1,6 +1,7 @@
 # By App Academy
 
-require 'sqlite3'
+# require 'sqlite3'
+require 'pg'
 
 # https://tomafro.net/2010/01/tip-relative-paths-with-file-expand-path
 ROOT_FOLDER = File.join(File.dirname(__FILE__), '..', '..', 'db')
@@ -9,9 +10,10 @@ DB_FILE = File.join(ROOT_FOLDER, 'funframe.db')
 
 class DBConnection
   def self.open(db_file_name)
-    @db = SQLite3::Database.new(db_file_name)
-    @db.results_as_hash = true
-    @db.type_translation = true
+    # @db = SQLite3::Database.new(db_file_name)
+    # @db.results_as_hash = true
+    # @db.type_translation = true
+    @db = PG::Connection.new dbname: ENV['DATABASE_URL'] || 'funframe' 
 
     @db
   end

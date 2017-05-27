@@ -29,12 +29,12 @@ app = Proc.new do |env|
 end
 
 app = Rack::Builder.new do
-  use ShowExceptions
+  # use ShowExceptions
   use Static
   run app
 end.to_app
 
 Rack::Server.start(
  app: app,
- Port: 3000
+ Port: ENV['PORT'] || 3000
 )

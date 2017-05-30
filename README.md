@@ -12,6 +12,23 @@ A lightweight webframework that I built. Its primary purpose was to help me exce
 * Compatible with Postgres Databases
 * Heroku Compatible
 
+## Getting Started
+
+* Create new project - `ruby path/to/FunFrame/new.rb path/to/[project]`
+
+* Database Setup
+  - Edit `db/init.sql`
+  - run `db/create.rb`
+
+* Deploy to Heroku
+  - `cd path/to/project`
+  - `git init`
+  - `heroku create`
+  - `git add -A`
+  - `git commit -m 'first commit`
+  - `git push heroku master`
+  - `heroku open`
+
 ## Example Application
 
 Coming Soon

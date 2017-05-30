@@ -10,5 +10,8 @@ A lightweight webframework that I built. Its primary purpose was to help me exce
 * CSFR Protection
 * HTML Templating (ERB)
 * Compatible with Postgres Databases
+* Heroku Compatible
 
-## Example
+## Example Application
+
+Coming Soon

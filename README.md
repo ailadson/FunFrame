@@ -32,4 +32,5 @@ A lightweight webframework that I built. Its primary purpose was to help me exce
 ## Example Application
 
 * [Color Songs](https://desolate-everglades-94078.herokuapp.com/)
+  * react, postgres, puma, heroku
   * Needs a style and ux reiteration. that'll come tomorrow

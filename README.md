@@ -1,6 +1,6 @@
 # FunFrame
 
-A lightweight web server app framework that I built. Its primary purpose was to help me excercise my knowledge, so if you find this, don't use it for production :-D
+A lightweight web server app framework. Its primary purpose was to help me excercise my knowledge, so if you find this, don't use it for production :-D
 
 ## Features
 

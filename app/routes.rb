@@ -1,0 +1,1 @@
+get "/", :example, :action

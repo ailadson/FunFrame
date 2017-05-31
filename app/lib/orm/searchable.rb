@@ -2,7 +2,7 @@ require_relative 'db_connection'
 
 module Searchable
   def where(params)
-    where_line = params.map{ |k,v| "#{k} = ?" }.join(" AND ")
+    where_line = params.keys.each_with_index.map{ |k, i| "#{k} = $#{i+1}" }.join(" AND ")
     data = DBConnection.execute(<<-SQL, params.values)
       SELECT
         *

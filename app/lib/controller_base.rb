@@ -5,6 +5,9 @@ require_relative './session'
 require_relative './flash'
 require 'active_support/inflector'
 
+DIR_NAME = File.expand_path(File.dirname(__FILE__))
+
+
 class ControllerBase
   attr_reader :req, :res, :params, :resource_name
 
@@ -41,7 +44,7 @@ class ControllerBase
   end
 
   def render(template_name)
-    path_to_erb = "views/#{resource_name}/#{template_name}.html.erb"
+    path_to_erb = "#{DIR_NAME}/views/#{resource_name}/#{template_name}.html.erb"
     erb_text = File.read(path_to_erb)
     html = ERB.new(erb_text).result(binding)
     render_content(html, 'text/html')
@@ -82,4 +85,6 @@ class ControllerBase
       raise "Invalid authenticity token"
     end
   end
+
+  protect_from_forgery
 end

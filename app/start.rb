@@ -1,14 +1,15 @@
 require 'rack'
-require_relative '../lib/orm/sql_object.rb'
-require_relative '../lib/controller_base.rb'
-require_relative '../lib/router'
-require_relative '../lib/static'
-require_relative '../lib/show_exceptions'
+require_relative './lib/orm/sql_object.rb'
+require_relative './lib/controller_base.rb'
+require_relative './lib/router'
+require_relative './lib/static'
+require_relative './lib/show_exceptions'
+
+DIR_NAME = File.expand_path(File.dirname(__FILE__))
 
 def require_directory(dir)
-  dir_name = File.dirname(__FILE__)
-  Dir["#{dir_name}/../#{dir}/*.rb"].each do |file|
-    require_relative file[dir_name.length + 1..-1]
+  Dir["#{DIR_NAME}/#{dir}/*.rb"].each do |file|
+    require_relative file[DIR_NAME.length + 1..-1]
   end
 end
 
@@ -18,7 +19,7 @@ require_directory('controllers')
 
 router = Router.new
 router.draw do
-  eval(File.read('routes.rb'))
+  eval(File.read("#{DIR_NAME}/routes.rb"))
 end
 
 app = Proc.new do |env|

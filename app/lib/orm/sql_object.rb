@@ -6,7 +6,7 @@ require_relative 'associatable'
 class SQLObject
   extend Searchable
   extend Associatable
-  
+
   def self.columns
     @columns ||= DBConnection.execute2(<<-SQL).first.map(&:to_sym)
       SELECT
@@ -65,6 +65,10 @@ class SQLObject
     end
   end
 
+  def to_json
+    attributes.to_json
+  end
+
   def attributes
     @attributes ||= {}
   end
@@ -74,15 +78,23 @@ class SQLObject
   end
 
   def insert
-    col_names = self.class.columns.join(", ")
-    question_marks = (["?"] * self.class.columns.length).join(", ")
-    DBConnection.execute(<<-SQL, attribute_values)
+    id_idx = self.class.columns.index(:id)
+    cols = self.class.columns.select{ |c| c != :id }
+    col_len = cols.length
+
+    col_names = cols.join(", ")
+    question_marks = (1..col_len).to_a.map{|n| "$#{n}" }.join(", ")
+    attr_values = attribute_values[0...id_idx] + attribute_values[(id_idx + 1)..-1]
+
+    result = DBConnection.execute3(<<-SQL, attr_values)
       INSERT INTO
         #{self.class.table_name} (#{col_names})
       VALUES
         (#{question_marks})
+      RETURNING
+        id
     SQL
-    self.id = DBConnection.last_insert_row_id
+    self.id = result[0]['id']
   end
 
   def update

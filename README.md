@@ -34,3 +34,12 @@ A lightweight webframework that I built. Its primary purpose was to help me exce
 * [Color Songs](https://desolate-everglades-94078.herokuapp.com/)
   * react, postgres, puma, heroku
   * Needs a style and ux reiteration. that'll come tomorrow
+
+
+## Improvements aka Coming Soon
+
+* Programmatic Migration System for Better Database Management
+* Pretty + Useful Error Page
+* Compatible with SQLite3
+* Prefetching
+
